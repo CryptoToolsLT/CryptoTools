@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+
+{% macro cipher(cipher) %}
+<div class="p-4 m-4 bg-white cursor-pointer hover:bg-gray-300">
+    <h3 class="text-xl">{{ cipher.name }}</h3>
+    <p>{{ cipher.description }}</p>
+    {# <a href="{{ url_for('cipher', cipher=cipher.name) }}" class="text-blue-500">Try it</a> #}
+    <a href="#" class="text-blue-500">Try it</a>
+</div>
+{% endmacro %}
+
+{% block content %}
+<main class="">
+    <h1 class="text-4xl p-4">CryptoTools</h1>
+    
+    <h2 class="text-2xl p-4">Simple</h2>
+    
+    <div>
+        {{ cipher({
+        'name': 'Caesar Cipher',
+        'description': 'A simple substitution cipher where each letter is shifted by a fixed number of positions in the
+        alphabet.'
+        }) }}
+        {{ cipher({
+        'name': 'Vigenère Cipher',
+        'description': 'A method of encrypting alphabetic text by using a simple form of polyalphabetic substitution.'
+        }) }}
+        {{ cipher({
+        'name': 'Playfair Cipher',
+        'description': 'A manual symmetric encryption technique and was the first literal digraph substitution cipher.'
+        }) }}
+        {{ cipher({
+        'name': 'Hill Cipher',
+        'description': 'A polygraphic substitution cipher based on linear algebra.'
+        }) }}
+        {{ cipher({
+        'name': 'Rail Fence Cipher',
+        'description': 'A transposition cipher that encrypts by writing the plaintext in a zigzag pattern.'
+        }) }}
+    </div>
+    
+    <h2 class="text-2xl p-4">Advanced</h2>
+    
+    <div>
+        {{ cipher({
+        'name': 'RSA',
+        'description': 'An asymmetric cryptographic algorithm used for secure data transmission.'
+        }) }}
+        {{ cipher({
+        'name': 'Diffie-Hellman',
+        'description': 'A key exchange protocol that allows two parties to establish a shared secret over an insecure
+        channel.'
+        }) }}
+        {{ cipher({
+        'name': 'AES',
+        'description': 'A symmetric block cipher used to encrypt and decrypt data.'
+        }) }}
+        {{ cipher({
+        'name': 'SHA-256',
+        'description': 'A cryptographic hash function that produces a 256-bit hash value.'
+        }) }}
+        {{ cipher({
+        'name': 'ElGamal',
+        'description': 'An asymmetric key encryption algorithm for public-key cryptography.'
+        }) }}
+    </div>
+</main>
+{% endblock %}
+
+{% block scripts %}
+
+{% if not current_user.is_authenticated %}
+    <script>
+        createPopup({
+            title: "Hi there!",
+            body: "Please log in to access all the features of CryptoTools.",
+            buttons: [
+                {
+                    text: "Log in",
+                    type: "primary",
+                    action: () => {
+                        window.location.href = "/login";
+                    }
+                },
+                {
+                    text: "Sign up",
+                    type: "secondary",
+                    action: () => {
+                        window.location.href = "/register";
+                    }
+                }
+            ],
+        });
+    </script>
+{% endif %}
+
+{% endblock %}
